@@ -1,0 +1,121 @@
+﻿@page
+@model PokemonCaluculate.Pages.PokemonStatus.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>ポケモン図鑑</h1>
+
+<p>
+    <a asp-page="Create">ポケモン追加</a>
+</p>
+<form asp-page="Find" method="GET">
+    <div class="row">
+        <input type="text" name="find" class="col-10 form-control" />
+        <input type="submit" value="検索" class="col-2 btn btn-primary" />
+    </div>
+</form>
+<table id="pokemon-table">
+    <thead>
+        <tr>
+            <th class="icon"></th>
+            <th class="name">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Name)
+            </th>
+            <th class="type">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Type1)
+            </th>
+            <th class="type">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Type2)
+            </th>
+            <th class="ability">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Ability1)
+            </th>
+            <th class="ability">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Ability2)
+            </th>
+            <th class="ability">
+                @Html.DisplayNameFor(model => model.Pokemon[0].HiddenAbliity)
+            </th>
+            <th class="status">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Hitpoint)
+            </th>
+            <th class="status">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Attack)
+            </th>
+            <th class="status">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Block)
+            </th>
+            <th class="status">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Contact)
+            </th>
+            <th class="status">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Defense)
+            </th>
+            <th class="status">
+                @Html.DisplayNameFor(model => model.Pokemon[0].Speed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pokemon[0].EvolutionJudge)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Pokemon)
+        {
+            <tr>
+                <td class="icon">
+                    <img src="@Html.DisplayFor(modelItem => item.IconPass)" alt="@Html.DisplayFor(modelItem => item.Name)" loading="lazy" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ability1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ability2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HiddenAbliity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hitpoint)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Attack)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Block)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Defense)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Speed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EvolutionJudge)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.PokemonId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.PokemonId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.PokemonId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<link href="~/css/pokemonstatus.css" rel="stylesheet" />

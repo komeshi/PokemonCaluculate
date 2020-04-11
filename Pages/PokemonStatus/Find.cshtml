@@ -1,0 +1,290 @@
+﻿@page
+@model PokemonCaluculate.Pages.PokemonStatus.FindModel
+@{
+    ViewData["Title"] = "Find";
+}
+
+
+<h1>@Model.Pokemons[0].Name</h1>
+
+
+<div class="row">
+    <div class="col-4">
+        <img src="@Model.Pokemons[0].IconPass" alt="@Model.Pokemons[0].Name" loading="lazy" />
+        <canvas id="abilityChart" width="400" height="400"></canvas>
+        <canvas id="raceChart" width="400" height="400"></canvas>
+    </div>
+    <div class="col-4">
+        <h2>レベル</h2>
+        <input class="range-slider__range" type="range" value="50" min="1" max="100" step="1" onchange="upDateParm()">
+        <span class="range-slider__value" id="level">50</span>
+        <h2>努力値</h2>
+        <div class="range-slider">
+            <p class="sta-name">HP</p>
+            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <span class="range-slider__value" id="hp-effort">0</span>
+        </div>
+        <span id="hp-ability"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">攻撃</p>
+            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <span class="range-slider__value" id="atk-effort">0</span>
+        </div>
+        <span id="atk-ability"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">防御</p>
+            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <span class="range-slider__value" id="blk-effort">0</span>
+        </div>
+        <span id="blk-ability"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">特攻</p>
+            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <span class="range-slider__value" id="cnt-effort">0</span>
+        </div>
+        <span id="cnt-ability"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">特防</p>
+            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <span class="range-slider__value" id="dfe-effort">0</span>
+        </div>
+        <span id="dfe-ability"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">素早さ</p>
+            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <span class="range-slider__value" id="spd-effort">0</span>
+        </div>
+        <span id="spd-ability"></span>
+        <br />
+    </div>
+    <div class="col-4">
+        <h2 id="individual-title">個体値</h2>
+        <div class="range-slider">
+            <p class="sta-name">HP</p>
+            <input class="range-slider__range" type="range" value="31" min="0" max="31" step="1" onchange="upDateParm()">
+            <span class="range-slider__value" id="hp-individual">31</span>
+        </div>
+        <span id="hp-individual"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">攻撃</p>
+            <input class="range-slider__range" type="range" value="31" min="0" max="31" step="1" onchange="upDateParm()">
+            <span class="range-slider__value" id="atk-individual">31</span>
+        </div>
+        <span id="atk-individual"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">防御</p>
+            <input class="range-slider__range" type="range" value="31" min="0" max="31" step="1" onchange="upDateParm()">
+            <span class="range-slider__value" id="blk-individual">31</span>
+        </div>
+        <span id="blk-individual"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">特攻</p>
+            <input class="range-slider__range" type="range" value="31" min="0" max="31" step="1" onchange="upDateParm()">
+            <span class="range-slider__value" id="cnt-individual">31</span>
+        </div>
+        <span id="cnt-individual"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">特防</p>
+            <input class="range-slider__range" type="range" value="31" min="0" max="31" step="1" onchange="upDateParm()">
+            <span class="range-slider__value" id="dfe-individual">31</span>
+        </div>
+        <span id="dfe-individual"></span>
+        <br />
+
+        <div class="range-slider">
+            <p class="sta-name">素早さ</p>
+            <input class="range-slider__range" type="range" value="31" min="0" max="31" step="1" onchange="upDateParm()">
+            <span class="range-slider__value" id="spd-individual">31</span>
+        </div>
+        <span id="spd-individual"></span>
+        <br />
+    </div>
+</div>
+
+<link href="~/css/result.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            setParm();
+        });
+
+        var parmName = ['hp', 'atk', 'blk', 'cnt', 'dfe', 'spd'];
+        var raceNum = [@Model.Pokemons[0].Hitpoint,@Model.Pokemons[0].Attack,@Model.Pokemons[0].Block,@Model.Pokemons[0].Contact,@Model.Pokemons[0].Defense,@Model.Pokemons[0].Speed];
+
+        function setParm() {
+            HpCal(raceNum[0], 0, 31,50, parmName[0] + '-ability');
+            for (let i = 1; i < raceNum.length; i++) {
+                StaCal(raceNum[i], 0, 31, 50, parmName[i] + '-ability');
+            }
+            DrawRadar(72, 115, 69, 78, 103, 122);
+        }
+
+        function upDateParm() {
+            var parmNum = new Array(6);
+            var labelName = ['HP: ', '攻撃: ', '防御: ', '素早さ: ', '特防: ', '特攻: '];
+            var temp = 0;
+
+            parmNum[0] = upDateHpCal(raceNum[0], parmName[0]);
+            for (let i = 1; i < raceNum.length; i++) {
+                parmNum[i] = upDateStaCal(raceNum[i], parmName[i]);
+            }
+
+            /* 描画順のため素早さ特攻入れ替え */
+            temp = parmNum[3];
+            parmNum[3] = parmNum[5];
+            parmNum[5] = temp;
+
+            for (let i = 0; i < labelName.length; i++) {
+                labelName[i] += parmNum[i];
+            }
+            chartUpdate(labelName,parmNum);
+        }
+
+        function HpCal(race, effort, individual, Lv, ability) {
+            var elem = document.getElementById(ability);
+            var HP = Math.floor((Math.floor((race * 2) + individual + (effort / 4.0)) * Lv) / 100) + Lv + 10;
+            elem.textContent = HP;
+        }
+
+        function StaCal(race, effort, individual, Lv, ability) {
+            var elem = document.getElementById(ability);
+            var param = Math.floor((Math.floor((race * 2) + individual + (effort / 4.0)) * Lv) / 100) + 5;
+            elem.textContent = param;
+        }
+
+        function upDateHpCal(race,parm) {
+            var elem = document.getElementById(parm + '-ability');
+            var effort_value = parseInt(document.getElementById(parm + '-effort').innerHTML, 10);
+            var individual_value = parseInt(document.getElementById(parm + '-individual').innerHTML, 10);
+            var level = parseInt(document.getElementById('level').innerHTML, 10);
+            var HP = Math.floor((Math.floor((race * 2) + individual_value + (effort_value / 4.0)) * level) / 100) + level + 10;
+            elem.textContent = HP;
+            return HP;
+        }
+
+        function upDateStaCal(race, parmName) {
+            var elem = document.getElementById(parmName + '-ability');
+            var effort_value = parseInt(document.getElementById(parmName + '-effort').innerHTML, 10);
+            var individual_value = parseInt(document.getElementById(parmName + '-individual').innerHTML, 10);
+            var level = parseInt(document.getElementById('level').innerHTML, 10);
+            var param = Math.floor((Math.floor((race * 2) + individual_value + (effort_value / 4.0)) * level) / 100) + 5;
+            elem.textContent = param;
+            return param;
+        }
+
+        function chartUpdate(labels, data) {
+            myChart.data.labels = labels;
+            myChart.data.datasets[0].data = data;
+            myChart.update();
+        }
+
+        /* 能力値レーダーチャート */
+        function DrawRadar(hp, atk, blk, cnt, dfe, spd) {
+            var ctx = document.getElementById('abilityChart').getContext('2d');
+            window.myChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['HP: ' + hp, '攻撃: ' + atk, '防御: ' + blk, '素早さ: ' + spd, '特防: ' + dfe, '特攻: ' + cnt],
+                    datasets: [{
+                        label: 'ステータス',
+                        borderColor: '#b5dcea',
+                        backgroundColor: '#d5eeff8f',
+                        data: [hp, atk, blk, spd, dfe, cnt]
+                    }]
+                },
+                options: {
+                    title: {
+                        display: false
+                    },
+                    scale: {
+                        display: true,
+                        pointLabels: {
+                            fontSize: 14
+                        },
+                        ticks: {
+                            display: false,
+                            beginAtZero: true,
+                            max: 250,
+                            min: 0,
+                            stepSize: 50
+                        },
+                    },
+                    legend: {
+                        display: false
+                    },
+                },
+                gridLines: {
+                    display: false
+                },
+            });
+        }
+
+        /*種族値棒グラフ */
+        function DrawRadar2(hp, atk, blk, cnt, dfe, spd) {
+            var ctx = document.getElementById('raceChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: ['HP: ' + hp, '攻撃: ' + atk, '防御: ' + blk, '素早さ: ' + spd, '特防: ' + dfe, '特攻: ' + cnt],
+                    datasets: [{
+                        label: 'ステータス',
+                        borderColor: '#b5dcea',
+                        backgroundColor: '#d5eeff8f',
+                        data: [hp, atk, blk, spd, dfe, cnt]
+                    }]
+                },
+                options: {
+                    title: {
+                        display: false
+                    },
+                },
+            });
+        }
+
+        /*スライダー*/
+        var rangeSlider = function () {
+            var slider = $('.range-slider'),
+                range = $('.range-slider__range'),
+                value = $('.range-slider__value');
+
+            slider.each(function () {
+
+                value.each(function () {
+                    var value = $(this).prev().attr('value');
+                    $(this).html(value);
+                });
+
+                range.on('input', function () {
+                    $(this).next(value).html(this.value);
+                });
+            });
+        };
+
+        rangeSlider();
+
+
+    </script>
+}
+
+

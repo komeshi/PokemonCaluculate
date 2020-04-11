@@ -1,0 +1,106 @@
+﻿@page
+@model PokemonCaluculate.Pages.PokemonStatus.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Pokemon</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Type1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Type1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Type2)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Type2)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Ability1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Ability1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Ability2)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Ability2)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.HiddenAbliity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.HiddenAbliity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Hitpoint)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Hitpoint)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Attack)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Attack)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Block)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Block)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Contact)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Contact)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Defense)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Defense)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.Speed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.Speed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.EvolutionJudge)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.EvolutionJudge)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pokemon.IconPass)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pokemon.IconPass)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Pokemon.PokemonId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

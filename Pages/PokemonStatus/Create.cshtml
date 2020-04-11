@@ -1,0 +1,99 @@
+﻿@page
+@model PokemonCaluculate.Pages.PokemonStatus.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Pokemon</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Name" class="control-label"></label>
+                <input asp-for="Pokemon.Name" class="form-control" />
+                <span asp-validation-for="Pokemon.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Type1" class="control-label"></label>
+                <input asp-for="Pokemon.Type1" class="form-control" />
+                <span asp-validation-for="Pokemon.Type1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Type2" class="control-label"></label>
+                <input asp-for="Pokemon.Type2" class="form-control" />
+                <span asp-validation-for="Pokemon.Type2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Ability1" class="control-label"></label>
+                <input asp-for="Pokemon.Ability1" class="form-control" />
+                <span asp-validation-for="Pokemon.Ability1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Ability2" class="control-label"></label>
+                <input asp-for="Pokemon.Ability2" class="form-control" />
+                <span asp-validation-for="Pokemon.Ability2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.HiddenAbliity" class="control-label"></label>
+                <input asp-for="Pokemon.HiddenAbliity" class="form-control" />
+                <span asp-validation-for="Pokemon.HiddenAbliity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Hitpoint" class="control-label"></label>
+                <input asp-for="Pokemon.Hitpoint" class="form-control" />
+                <span asp-validation-for="Pokemon.Hitpoint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Attack" class="control-label"></label>
+                <input asp-for="Pokemon.Attack" class="form-control" />
+                <span asp-validation-for="Pokemon.Attack" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Block" class="control-label"></label>
+                <input asp-for="Pokemon.Block" class="form-control" />
+                <span asp-validation-for="Pokemon.Block" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Contact" class="control-label"></label>
+                <input asp-for="Pokemon.Contact" class="form-control" />
+                <span asp-validation-for="Pokemon.Contact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Defense" class="control-label"></label>
+                <input asp-for="Pokemon.Defense" class="form-control" />
+                <span asp-validation-for="Pokemon.Defense" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.Speed" class="control-label"></label>
+                <input asp-for="Pokemon.Speed" class="form-control" />
+                <span asp-validation-for="Pokemon.Speed" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Pokemon.EvolutionJudge" /> @Html.DisplayNameFor(model => model.Pokemon.EvolutionJudge)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pokemon.IconPass" class="control-label"></label>
+                <input asp-for="Pokemon.IconPass" class="form-control" />
+                <span asp-validation-for="Pokemon.IconPass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
