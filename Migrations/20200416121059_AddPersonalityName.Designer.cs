@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokemonCaluculate.Data;
 
 namespace PokemonCaluculate.Migrations
 {
     [DbContext(typeof(PokemonCaluculateContext))]
-    partial class PokemonCaluculateContextModelSnapshot : ModelSnapshot
+    [Migration("20200416121059_AddPersonalityName")]
+    partial class AddPersonalityName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

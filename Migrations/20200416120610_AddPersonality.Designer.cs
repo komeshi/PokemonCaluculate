@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PokemonCaluculate.Data;
 
 namespace PokemonCaluculate.Migrations
 {
     [DbContext(typeof(PokemonCaluculateContext))]
-    partial class PokemonCaluculateContextModelSnapshot : ModelSnapshot
+    [Migration("20200416120610_AddPersonality")]
+    partial class AddPersonality
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,14 +27,14 @@ namespace PokemonCaluculate.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DownSta")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("DownSta")
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UpSta")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("UpSta")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

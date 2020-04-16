@@ -1,7 +1,7 @@
 ﻿@page
 @model PokemonCaluculate.Pages.PokemonStatus.FindModel
 @{
-    ViewData["Title"] = "Find";
+    ViewData["Title"] = Model.Pokemons[0].Name;
 }
 
 
@@ -21,7 +21,7 @@
         <h2>努力値</h2>
         <div class="range-slider">
             <p class="sta-name">HP</p>
-            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <input class="range-slider__range effort-slider" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()" >
             <span class="range-slider__value" id="hp-effort">0</span>
         </div>
         <span id="hp-ability"></span>
@@ -29,7 +29,7 @@
 
         <div class="range-slider">
             <p class="sta-name">攻撃</p>
-            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <input class="range-slider__range effort-slider" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
             <span class="range-slider__value" id="atk-effort">0</span>
         </div>
         <span id="atk-ability"></span>
@@ -37,7 +37,7 @@
 
         <div class="range-slider">
             <p class="sta-name">防御</p>
-            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <input class="range-slider__range effort-slider" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
             <span class="range-slider__value" id="blk-effort">0</span>
         </div>
         <span id="blk-ability"></span>
@@ -45,15 +45,14 @@
 
         <div class="range-slider">
             <p class="sta-name">特攻</p>
-            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <input class="range-slider__range effort-slider" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
             <span class="range-slider__value" id="cnt-effort">0</span>
         </div>
         <span id="cnt-ability"></span>
         <br />
-
         <div class="range-slider">
             <p class="sta-name">特防</p>
-            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <input class="range-slider__range effort-slider" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
             <span class="range-slider__value" id="dfe-effort">0</span>
         </div>
         <span id="dfe-ability"></span>
@@ -61,7 +60,7 @@
 
         <div class="range-slider">
             <p class="sta-name">素早さ</p>
-            <input class="range-slider__range" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
+            <input class="range-slider__range effort-slider" type="range" value="0" min="0" max="252" step="4" onchange="upDateParm()">
             <span class="range-slider__value" id="spd-effort">0</span>
         </div>
         <span id="spd-ability"></span>
@@ -122,8 +121,37 @@
 <link href="~/css/result.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
+
 @section scripts{
     <script>
+        var maxTotal = 508,
+            inputs = [].slice.call(document.getElementsByClassName('effort-slider')),
+            getTotal = function () {
+                var sum = 0;
+                inputs.forEach(function (input) {
+                    sum += parseInt(input.value, 10);
+                });
+                return sum;
+            },
+            maxReached = function (e) {
+                var sum = getTotal(),
+                    target;
+                if (sum > maxTotal) {
+                    target = e.target;
+                    target.value = target.value - (sum - maxTotal);
+                    // next line is just for demonstrational purposes
+                    document.getElementById('total').innerHTML = getTotal();
+                    e.preventDefault();
+                    return false;
+                }
+                // next line is just for demonstrational purposes
+                document.getElementById('total').innerHTML = getTotal();
+                return true;
+            };
+
+        inputs.forEach(function (input) {
+            input.addEventListener('input', maxReached);
+        });
 
         $(document).ready(function () {
             setParm();
@@ -133,11 +161,12 @@
         var raceNum = [@Model.Pokemons[0].Hitpoint,@Model.Pokemons[0].Attack,@Model.Pokemons[0].Block,@Model.Pokemons[0].Contact,@Model.Pokemons[0].Defense,@Model.Pokemons[0].Speed];
 
         function setParm() {
-            HpCal(raceNum[0], 0, 31,50, parmName[0] + '-ability');
+            var HP = HpCal(raceNum[0], 0, 31, 50, parmName[0] + '-ability');
+            var parm = new Array(6);
             for (let i = 1; i < raceNum.length; i++) {
-                StaCal(raceNum[i], 0, 31, 50, parmName[i] + '-ability');
+                parm[i] = StaCal(raceNum[i], 0, 31, 50, parmName[i] + '-ability');
             }
-            DrawRadar(72, 115, 69, 78, 103, 122);
+            DrawRadar(HP,parm[1],parm[2],parm[5],parm[4],parm[3]);
         }
 
         function upDateParm() {
@@ -165,12 +194,14 @@
             var elem = document.getElementById(ability);
             var HP = Math.floor((Math.floor((race * 2) + individual + (effort / 4.0)) * Lv) / 100) + Lv + 10;
             elem.textContent = HP;
+            return HP;
         }
 
         function StaCal(race, effort, individual, Lv, ability) {
             var elem = document.getElementById(ability);
             var param = Math.floor((Math.floor((race * 2) + individual + (effort / 4.0)) * Lv) / 100) + 5;
             elem.textContent = param;
+            return param;
         }
 
         function upDateHpCal(race,parm) {

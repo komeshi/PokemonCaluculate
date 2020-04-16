@@ -11,12 +11,7 @@ namespace PokemonCaluculate.Pages.PokemonStatus
 {
     public class FindModel : PageModel
     {
-        private readonly PokemonCaluculate.Data.PokemonCaluculateContext _context;
-
-        public string Name { get; set; }
-
-        public int EffortLimit { get; set; }
-        
+        private readonly PokemonCaluculate.Data.PokemonCaluculateContext _context;                
 
         public FindModel(PokemonCaluculate.Data.PokemonCaluculateContext context)
         {
@@ -25,9 +20,9 @@ namespace PokemonCaluculate.Pages.PokemonStatus
 
         public IList<Pokemon> Pokemons { get; set; }
 
+
         public async Task OnGetAsync(string Find)
         {
-            Name = Find;
             Pokemons = await _context.Pokemon.Where(m => m.Name == Find).Take(1).ToListAsync();
         }
 

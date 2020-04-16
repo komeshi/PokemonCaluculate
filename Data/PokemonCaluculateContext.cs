@@ -15,5 +15,7 @@ namespace PokemonCaluculate.Data
         }
 
         public DbSet<PokemonCaluculate.Models.Pokemon> Pokemon { get; set; }
+
+        public DbSet<PokemonCaluculate.Models.Personality> Personality { get; set; }
     }
 }
