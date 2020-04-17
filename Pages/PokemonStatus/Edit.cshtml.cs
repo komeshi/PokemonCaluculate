@@ -30,7 +30,7 @@ namespace PokemonCaluculate.Pages.PokemonStatus
                 return NotFound();
             }
 
-            Pokemon = await _context.Pokemon.FirstOrDefaultAsync(m => m.PokemonId == id);
+            Pokemon = await _context.Pokemon.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Pokemon == null)
             {
@@ -56,7 +56,7 @@ namespace PokemonCaluculate.Pages.PokemonStatus
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PokemonExists(Pokemon.PokemonId))
+                if (!PokemonExists(Pokemon.Id))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace PokemonCaluculate.Pages.PokemonStatus
 
         private bool PokemonExists(int id)
         {
-            return _context.Pokemon.Any(e => e.PokemonId == id);
+            return _context.Pokemon.Any(e => e.Id == id);
         }
     }
 }

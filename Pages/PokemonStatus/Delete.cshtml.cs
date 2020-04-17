@@ -29,7 +29,7 @@ namespace PokemonCaluculate.Pages.PokemonStatus
                 return NotFound();
             }
 
-            Pokemon = await _context.Pokemon.FirstOrDefaultAsync(m => m.PokemonId == id);
+            Pokemon = await _context.Pokemon.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Pokemon == null)
             {

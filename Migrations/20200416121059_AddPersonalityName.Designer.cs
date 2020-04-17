@@ -43,7 +43,7 @@ namespace PokemonCaluculate.Migrations
 
             modelBuilder.Entity("PokemonCaluculate.Models.Pokemon", b =>
                 {
-                    b.Property<int>("PokemonId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -90,7 +90,7 @@ namespace PokemonCaluculate.Migrations
                     b.Property<string>("Type2")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("PokemonId");
+                    b.HasKey("Id");
 
                     b.ToTable("Pokemon");
                 });

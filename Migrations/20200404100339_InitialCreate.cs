@@ -10,7 +10,7 @@ namespace PokemonCaluculate.Migrations
                 name: "Pokemon",
                 columns: table => new
                 {
-                    PokemonId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     Type1 = table.Column<string>(nullable: true),
@@ -29,7 +29,7 @@ namespace PokemonCaluculate.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pokemon", x => x.PokemonId);
+                    table.PrimaryKey("PK_Pokemon", x => x.Id);
                 });
         }
 

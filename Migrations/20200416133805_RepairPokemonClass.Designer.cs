@@ -9,8 +9,8 @@ using PokemonCaluculate.Data;
 namespace PokemonCaluculate.Migrations
 {
     [DbContext(typeof(PokemonCaluculateContext))]
-    [Migration("20200416120610_AddPersonality")]
-    partial class AddPersonality
+    [Migration("20200416133805_RepairPokemonClass")]
+    partial class RepairPokemonClass
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,14 +27,14 @@ namespace PokemonCaluculate.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("DownSta")
-                        .HasColumnType("float");
+                    b.Property<string>("DownSta")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("UpSta")
-                        .HasColumnType("float");
+                    b.Property<string>("UpSta")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

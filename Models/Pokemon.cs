@@ -8,7 +8,7 @@ namespace PokemonCaluculate.Models
 {
     public class Pokemon
     {
-        public int PokemonId { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "名前")]
         public string Name { get; set; }
